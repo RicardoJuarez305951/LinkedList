@@ -1,6 +1,6 @@
 package uaslp.ingenieria.labs.list;
 
-public class Node {
+class Node {
     //Atributos
     int dato;
     Node next;
