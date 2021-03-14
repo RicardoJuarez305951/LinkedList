@@ -76,7 +76,7 @@ public class Main {
 
         System.out.println("---------------------");
 
-        LinkedList<Float>.Iterator itFloats = lista3.getIterator();
+        LinkedList<Float>.ReverseIterator itFloats = lista3.getReverseIterator();
 
         while(itFloats.hasNext()){
             System.out.println(itFloats.next());
