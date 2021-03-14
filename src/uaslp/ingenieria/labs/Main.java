@@ -12,6 +12,7 @@ public class Main {
 
         LinkedList<Integer> lista1 = new LinkedList<>();
         LinkedList<String> lista2 = new LinkedList<>();
+        LinkedList<Float> lista3 = new LinkedList<>();
 
         lista1.add(1);
         lista1.add(4);
@@ -22,6 +23,9 @@ public class Main {
         lista2.add(" Object ");
         lista2.add(" Oriented ");
         lista2.add(" Programming ");
+
+        lista3.add(3.1416F);
+        lista3.add(2.718F);
 
         LinkedList<Integer>.Iterator it = lista1.getIterator();
 
@@ -68,6 +72,14 @@ public class Main {
 
         while(itStrings.hasNext()){
             System.out.println(itStrings.next());
+        }
+
+        System.out.println("---------------------");
+
+        LinkedList<Float>.Iterator itFloats = lista3.getIterator();
+
+        while(itFloats.hasNext()){
+            System.out.println(itFloats.next());
         }
 
     }

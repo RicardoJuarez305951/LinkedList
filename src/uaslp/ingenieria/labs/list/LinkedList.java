@@ -167,7 +167,7 @@ public class LinkedList<G> {
     }
 
     public void insert(G data, Position position, Iterator it) {
-        // ¿qué ofrece java para restringir los valores de position a solamente BEFORE y AFTER?
+
 
         Node<G> newNode = new Node<>(data);
         Node<G> currentNode = it.getCurrentNode();
