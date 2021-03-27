@@ -1,8 +1,9 @@
 package uaslp.ingenieria.labs.list;
 
+
 public class ArrayList <H> implements List<H>{
 
-    private Object array[];
+    private Object[] array;
     private int size;
 
     public ArrayList() {
@@ -11,8 +12,13 @@ public class ArrayList <H> implements List<H>{
 
     @Override
     public void add(H data) {
-
-        this.array[size++] = data;
+        if(array.length <= size){
+            Object[] arrayN = new Object[array.length + 2];
+            System.arraycopy(array, 0, arrayN, 0, array.length);
+            array = arrayN;
+        }
+        this.array[size] = data;
+        size++;
     }
 
     @Override
@@ -22,61 +28,63 @@ public class ArrayList <H> implements List<H>{
 
     @Override
     public void delete(int index) {
-        List<H> lista = new ArrayList<>();
-        int currentIndex = 0;
-
-        if (index < 0 || index >= size) {
+        if(index < 0 && index >= size){
             return;
-        }
+        } else{
 
-
-
-        if (size == 0) {
-            array[0] = null;    //head = null;
-            array[1] = null;    //tail = null;
-            return;
-        }
-
-        if (index == 0) {
-            array[0] = array[1];    //head = head.next;
-            array[1] = null;      //head.previous = null;
-        }
-
-        if (index == size) {
-            array[size - 1] = array[size];//tail = tail.previous;
-            array[size] = null;
-        }
-
-        if (index > 0 && index < size) {
-
-            while (currentIndex < index) {
-                array[currentIndex] = array[currentIndex + 1];
-                currentIndex++;
+            for (int currentIndex = index + 1; currentIndex < size; currentIndex++){
+                array[currentIndex - 1] = array[currentIndex];
             }
-            array[currentIndex+1] = array[currentIndex+1];//currentNode.previous.next = currentNode.next;
-            array[currentIndex] = array[currentIndex-1];//currentNode.next.previous = currentNode.previous;
+            size--;
         }
-
-        size--;
-    }
-
-    @Override
-    public int getSize() {
-        return size;
-    }
-
-    @Override
-    public Iterator<H> getIterator() {
-        return null;
-    }
+}
 
     @Override
     public void insert(H data, Position position, Iterator<H> it) {
-
     }
 
-    @Override
-    public Iterator<H> getReverseIterator() {
-        return null;
-    }
+
+        public class ForwardIterator implements Iterator<H> {
+            private int currentIndex;
+
+            public boolean hasNext(){
+                return currentIndex < size;
+            }
+
+            public H next(){
+                return (H) array[currentIndex++];
+            }
+        }
+
+        public class ReverseIterator implements Iterator<H> {
+            private int currentIndex;
+
+            public ReverseIterator(){
+                currentIndex = size - 1;
+            }
+
+            public boolean hasNext(){
+                return currentIndex > 0;
+            }
+
+            public H next(){
+                return (H) array[currentIndex--];
+            }
+        }
+
+        @Override
+        public Iterator<H> getIterator() {
+            return new ForwardIterator();
+        }
+
+        @Override
+        public int getSize() {
+            return size;
+        }
+
+        @Override
+        public ReverseIterator getReverseIterator() {
+            return new ReverseIterator();
+        }
 }
+

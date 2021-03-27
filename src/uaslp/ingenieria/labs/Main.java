@@ -1,7 +1,8 @@
 package uaslp.ingenieria.labs;
 
+import uaslp.ingenieria.labs.list.ArrayList;
 import uaslp.ingenieria.labs.list.Iterator;
-import uaslp.ingenieria.labs.list.LinkedList;
+import uaslp.ingenieria.labs.list.List;
 
 public class Main {
 
@@ -9,8 +10,8 @@ public class Main {
 
 
 
-        LinkedList<Integer> lista1 = new LinkedList<>();
-        LinkedList<String> lista2 = new LinkedList<>();
+        List<Integer> lista1 = new ArrayList<>();
+        List<String> lista2 = new ArrayList<>();
 
         lista1.add(1);
         lista1.add(4);
@@ -36,7 +37,7 @@ public class Main {
             System.out.println("Dato: " + element);
         }
 
-        
+
 
         System.out.println("---------------------");
 
