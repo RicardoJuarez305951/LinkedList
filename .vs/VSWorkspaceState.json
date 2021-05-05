@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\uaslp",
+    "\\src\\uaslp\\ingenieria",
+    "\\src\\uaslp\\ingenieria\\labs",
+    "\\src\\uaslp\\ingenieria\\labs\\list"
   ],
+  "SelectedNode": "\\src\\uaslp\\ingenieria\\labs\\Main.java",
   "PreviewInSolutionExplorer": false
 }
