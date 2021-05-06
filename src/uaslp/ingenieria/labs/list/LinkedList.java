@@ -18,86 +18,73 @@ public class LinkedList<G> implements List<G> {
         }
     }
 
+    public class ForwardIterator implements Iterator<G> {
+        private Node<G> currentNode;
+
+        public ForwardIterator(){
+            this.currentNode = head;
+        }
+
+        @Override
+        public boolean hasNext(){
+            return currentNode != null;
+        }
+
+        @Override
+        public G next(){
+            G data = currentNode.data;
+            currentNode = currentNode.next;
+            return data;
+        }
+    }
+
+    public class ReverseIterator implements Iterator<G>{
+        private Node<G> currentNode;
+
+        public ReverseIterator(){
+            this.currentNode = tail;
+        }
+
+        @Override
+        public boolean hasNext(){
+            return currentNode != null;
+        }
+
+        @Override
+        public G next(){
+            G data = currentNode.data;
+            currentNode = currentNode.previous;
+            return data;
+        }
+    }
+
     private Node<G> head;
     private Node<G> tail;
     private int size;
-
     private static int listsCount = 0;
 
-    public LinkedList() {
-        listsCount ++;
+    public LinkedList(){
+        listsCount++;
     }
 
     public static int getListsCount(){
         return listsCount;
     }
 
-    public class ForwardIterator implements Iterator<G> {
-        private Node<G> currentNode;
-
-        public ForwardIterator() {
-            this.currentNode = head;
-        }
-
-        public ForwardIterator(ForwardIterator iterator){
-            currentNode = iterator.currentNode;
-        }
-
-        public boolean hasNext(){
-            return currentNode != null;
-        }
-
-        public G next(){
-            G data = currentNode.data;
-
-            currentNode = currentNode.next;
-
-            return data;
-        }
-
-        Node<G> getCurrentNode() {  // modificador de acceso se llama -> package-private
-            return currentNode;
-        }
-    }
-
-    public class ReverseIterator implements Iterator<G> {
-
-        private Node<G> currentNode;
-
-        public ReverseIterator() {
-            this.currentNode = tail;
-        }
-
-
-        public boolean hasNext(){
-            return currentNode != null;
-        }
-
-        public G next(){
-            G data = currentNode.data;
-
-            currentNode = currentNode.previous;
-
-            return data;
-        }
-    }
-
-    /**
+    /***
      * Inserts data at the end of the list
-     *
      * @param data Data to be inserted
      */
     @Override
-    public void add(G data) {
+    public void add(G data){
         Node<G> node = new Node<>(data);
-
         node.previous = tail;
 
-        if (tail != null) {
+        if(tail != null){
             tail.next = node;
         }
 
-        if (head == null) {
+        if(head == null){
             head = node;
         }
 
@@ -110,60 +97,65 @@ public class LinkedList<G> implements List<G> {
      * @return data in index
      */
     @Override
-    public G get(int index) {
+    public G get(int index){
         Node<G> currentNode = head;
-        int currentIndex = 0;
+        int currentindex = 0;
 
-        while (currentIndex < index) {
+        while(currentindex < index){
             currentNode = currentNode.next;
-            currentIndex++;
+            currentindex++;
         }
 
         return currentNode.data;
     }
 
+    /**
+     * @param index 0-index
+     */
     @Override
-    public void delete(int index) {
+    public void delete(int index) throws MyIndexOutOfBoundsException{
         Node<G> currentNode = head;
         int currentIndex = 0;
 
-        if (index < 0 || index >= size) {
-            return;
+        if(index < 0 || index >= size){
+            throw new MyIndexOutOfBoundsException();
         }
-
         size--;
 
-        if (size == 0) {
+        if(size == 0){
             head = null;
             tail = null;
             return;
         }
 
-        if (index == 0) {
+        if(index == 0){
             head = head.next;
             head.previous = null;
         }
 
-        if (index == size) {
+        if(index == size){
             tail = tail.previous;
             tail.next = null;
         }
 
-        if (index > 0 && index < size) {
-            while (currentIndex < index) {
+        if(index > 0 && index < size){
+            while(currentIndex < index){
                 currentNode = currentNode.next;
                 currentIndex++;
             }
             currentNode.previous.next = currentNode.next;
             currentNode.next.previous = currentNode.previous;
         }
-
-
     }
 
     @Override
-    public Iterator<G> getIterator() {
+    public ForwardIterator getIterator(){
         return new ForwardIterator();
+    }
+
+    @Override
+    public ReverseIterator getReverseIterator(){
+        return new ReverseIterator();
     }
 
     @Override
@@ -171,7 +163,7 @@ public class LinkedList<G> implements List<G> {
 
 
         Node<G> newNode = new Node<>(data);
-        Node<G> currentNode =((ForwardIterator)it).getCurrentNode();
+        Node<G> currentNode =((ForwardIterator)it).currentNode;
 
         if (position == AFTER) {
             newNode.next = currentNode.next;
@@ -200,10 +192,5 @@ public class LinkedList<G> implements List<G> {
     @Override
     public int getSize() {
         return size;
-    }
-
-    @Override
-    public ReverseIterator getReverseIterator() {
-        return new ReverseIterator();
     }
 }

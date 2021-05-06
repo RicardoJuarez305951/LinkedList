@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class ArrayListTest {
+public class LinkedListTest {
 
     @Test
-    public void whenArrayListIsCreated_thenSizeIsZero(){
-        ArrayList<Integer> list = new ArrayList<>();
+    public void whenLinkedListIsCreated_thenSizeIsZero(){
+        LinkedList<Integer> list = new LinkedList<>();
 
         int size = list.getSize();
 
@@ -17,18 +17,17 @@ public class ArrayListTest {
     }
 
     @Test
-    public void givenANewArray_whenAddElement_thenSizeIsOne(){
-        ArrayList<Integer> list = new ArrayList<>();
+    public void givenANewList_ThenListsCountIncreases(){
+        int listsCount = LinkedList.getListsCount();
 
-        list.add(500);
+        new LinkedList<>();
 
-        assertEquals(1,list.getSize());
-        assertEquals(500,list.get(0));
+        assertEquals(listsCount + 1,LinkedList.getListsCount());
     }
 
     @Test
     public void givenAnExistentArrayWithNoCapacityElement_whenAddElement_thenSizeAndCapacityIncrements(){
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -47,7 +46,7 @@ public class ArrayListTest {
 
     @Test
     public void givenAListWithFiveElements_whenIterator_thenAllElementsAreAccesible(){
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -56,6 +55,8 @@ public class ArrayListTest {
         list.add(1000);
 
         Iterator<Integer> it = list.getIterator();
+
+
 
         assertTrue(it.hasNext());
         assertEquals(500,it.next());
@@ -72,7 +73,7 @@ public class ArrayListTest {
 
     @Test
     public void givenAListWithFiveElements_whenReverseIterator_thenAllElementsAreAccesible(){
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -97,7 +98,7 @@ public class ArrayListTest {
 
     @Test
     public void givenAnExistentArrayWith4Elements_whenDeleteHeadElement_thenSizeDecrements() throws MyIndexOutOfBoundsException {
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -114,7 +115,7 @@ public class ArrayListTest {
 
     @Test
     public void givenAnExistentArrayWith4Elements_whenDeleteElementInTheMiddle_thenSizeDecrements() throws MyIndexOutOfBoundsException {
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -131,7 +132,7 @@ public class ArrayListTest {
 
     @Test
     public void givenAnExistentArrayWith4Elements_whenDeleteTailElement_thenSizeDecrements() throws MyIndexOutOfBoundsException {
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -148,7 +149,7 @@ public class ArrayListTest {
 
     @Test
     public void givenAnExistentArrayWith4Elements_whenDeleteElementAtIndex5_thenMyIndexOutOfBoundsExceptionIsThrown() throws MyIndexOutOfBoundsException{
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -160,7 +161,7 @@ public class ArrayListTest {
 
     @Test
     public void givenAnExistentListWith4Elements_whenGetElementAtIndex5_thenMyIndexOutOfBoundsExceptionsIsThrown(){
-        ArrayList<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
@@ -168,26 +169,26 @@ public class ArrayListTest {
         list.add(800);
 
 
-        assertThrows(ArrayIndexOutOfBoundsException.class, ()->list.get(5));
+        assertThrows(NullPointerException.class, ()->list.get(5));
     }
 
     @Test
-    public void givenAnExistentListWith3Elements_WhenInsertElementAtIndex1_DataWillBeTheSame(){
-        ArrayList<Integer> list = new ArrayList<>();
+    public void givenAnExistentListWith3Elements_WhenInsertElementAtIndex1_DataFrom1To3WillBePushed(){
+        LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
         list.add(600);
         list.add(700);
 
-        Iterator<Integer> it = list.getReverseIterator();
-
+        Iterator<Integer> it = list.getIterator();
 
         list.insert(1000,Position.AFTER,it);
 
-        assertEquals(3,list.getSize());
+        assertEquals(4,list.getSize());
         assertEquals(500,list.get(0));
-        assertEquals(600,list.get(1));
-        assertEquals(700,list.get(2));
+        assertEquals(1000,list.get(1));
+        assertEquals(600,list.get(2));
+        assertEquals(700,list.get(3));
 
     }
 }

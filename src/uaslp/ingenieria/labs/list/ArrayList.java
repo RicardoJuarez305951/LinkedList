@@ -27,17 +27,15 @@ public class ArrayList <H> implements List<H>{
     }
 
     @Override
-    public void delete(int index) {
-        if(index < 0 && index >= size){
-            return;
+    public void delete(int index) throws MyIndexOutOfBoundsException { //Checked Exception
+        if(array.length - (index + 1) >= 0){
+            System.arraycopy(this.array, index + 1, this.array, index + 1 - 1, array.length - (index + 1));
         } else{
-
-            for (int currentIndex = index + 1; currentIndex < size; currentIndex++){
-                array[currentIndex - 1] = array[currentIndex];
-            }
-            size--;
+            throw new MyIndexOutOfBoundsException();
         }
-}
+            size--;
+    }
+
 
     @Override
     public void insert(H data, Position position, Iterator<H> it) {
@@ -64,7 +62,7 @@ public class ArrayList <H> implements List<H>{
             }
 
             public boolean hasNext(){
-                return currentIndex > 0;
+                return currentIndex >= 0;
             }
 
             public H next(){
