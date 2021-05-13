@@ -160,7 +160,7 @@ public class LinkedListTest {
     }
 
     @Test
-    public void givenAnExistentListWith4Elements_whenGetElementAtIndex5_thenMyIndexOutOfBoundsExceptionsIsThrown(){
+    public void givenAnExistentListWith4Elements_whenGetElementAtIndex5_thenMyIndexOutOfBoundsExceptionsIsThrown() {
         LinkedList<Integer> list = new LinkedList<>();
 
         list.add(500);
@@ -190,5 +190,46 @@ public class LinkedListTest {
         assertEquals(600,list.get(2));
         assertEquals(700,list.get(3));
 
+    }
+
+    @Test
+    public void givenAnExistentListWith3Elements_WhenInsertElementBefore_DataWillBePushed(){
+        LinkedList<Integer> list = new LinkedList<>();
+
+        list.add(500);
+        list.add(600);
+        list.add(700);
+
+        Iterator<Integer> it = list.getIterator();
+        it.next();
+
+        list.insert(1000,Position.BEFORE,it);
+
+        assertEquals(4,list.getSize());
+        assertEquals(500,list.get(0));
+        assertEquals(1000,list.get(1));
+        assertEquals(600,list.get(2));
+        assertEquals(700,list.get(3));
+    }
+    @Test
+    public void givenANullList_InsertBefore_DataWillBeInserted(){
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(500);
+        Iterator<Integer> it = list.getIterator();
+
+        list.insert(100,Position.BEFORE,it);
+
+        assertEquals(2,list.getSize());
+    }
+
+    @Test
+    public void givenANullList_InsertAfter_DataWillBeInserted(){
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(500);
+        Iterator<Integer> it = list.getIterator();
+
+        list.insert(100,Position.AFTER,it);
+
+        assertEquals(2,list.getSize());
     }
 }

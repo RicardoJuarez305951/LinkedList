@@ -122,12 +122,6 @@ public class LinkedList<G> implements List<G> {
         }
         size--;
 
-        if(size == 0){
-            head = null;
-            tail = null;
-            return;
-        }
-
         if(index == 0){
             head = head.next;
             head.previous = null;
@@ -183,8 +177,6 @@ public class LinkedList<G> implements List<G> {
             } else {
                 head = newNode;
             }
-        } else {
-            System.out.println("No conozco el valor de position");
         }
         size++;
     }
